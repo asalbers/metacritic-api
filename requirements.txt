@@ -1,2 +1,4 @@
 requests
-BeautifulSoup
+BeautifulSoup4
+flask
+pytest
