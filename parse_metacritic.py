@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import requests, re, json
 from bs4 import BeautifulSoup
 from collections import defaultdict
