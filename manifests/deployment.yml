@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: asalbersmetacriticapi 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: asalbersmetacriticapi
+  template:
+    metadata:
+      labels:
+        app: asalbersmetacriticapi 
+    spec:
+      containers:
+        - name: asalbersmetacriticapi 
+          image: aaconreg.azurecr.io/asalbersmetacriticapi
+          ports:
+          - containerPort: 8080
