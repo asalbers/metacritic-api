@@ -27,3 +27,4 @@ jobs:
           acrName: ${{ secrets.CONTAINER_REG }}
           containerAppName: ${{ secrets.APP_NAME }}
           resourceGroup: ${{ secrets.RESOURCE_GROUP }}
+# test
