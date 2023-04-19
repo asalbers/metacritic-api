@@ -19,6 +19,7 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+
       - name: Build and deploy Container App
         uses: azure/container-apps-deploy-action@v0
         with:
