@@ -3,7 +3,7 @@ name: Azure Container Apps Deploy
 on:
   workflow_run:
     workflows:
-        - Python-Build
+        - Docker-Build
     types:
         - completed
 
