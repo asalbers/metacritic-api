@@ -1,30 +1,26 @@
-name: Python application
+name: Azure Container Apps Deploy
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
-
-permissions:
-  contents: read
+    branches:
+      - main
 
 jobs:
-    deployToACA:
+  build:
+    runs-on: ubuntu-latest
 
-        runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
 
-        steps:
+      - name: Log in to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-        - name: Log in to Azure
-          uses: azure/login@v1
-          with:
-                creds: ${{ secrets.AZURE_CREDENTIALS }}
-        
-        - name: Build and deploy Container App
-          uses: azure/container-apps-deploy-action@v0
-          with:
-                appSourcePath: ${{ github.workspace }}/src
-                acrName: myregistry
-                containerAppName: my-container-app
-                resourceGroup: my-rg
+      - name: Build and deploy Container App
+        uses: azure/container-apps-deploy-action@v0
+        with:
+          appSourcePath: ${{ github.workspace }}/src
+          acrName: ${{ secrets.CONTAINER_REG }}
+          containerAppName: ${{ secrets.APP_NAME }}
+          resourceGroup: ${{ secrets.RESOURCE_GROUP }}
