@@ -1,9 +1,11 @@
 name: Azure Container Apps Deploy
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows:
+        - Python-Build
+    types:
+        - completed
 
 jobs:
   build:
