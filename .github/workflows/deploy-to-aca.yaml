@@ -26,10 +26,17 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+#       - name: Build and deploy Container App
+#         uses: azure/container-apps-deploy-action@v0
+#         with:
+#           appSourcePath: ${{ github.workspace }}/
+#           acrName: ${{ secrets.CONTAINER_REG }}
+#           containerAppName: ${{ secrets.APP_NAME }}
+#           resourceGroup: ${{ secrets.RESOURCE_GROUP }}
       - name: Build and deploy Container App
         uses: azure/container-apps-deploy-action@v0
         with:
-          appSourcePath: ${{ github.workspace }}/
-          acrName: ${{ secrets.CONTAINER_REG }}
+          acrName: ${{ secrets.DOCKER_USER }}
           containerAppName: ${{ secrets.APP_NAME }}
           resourceGroup: ${{ secrets.RESOURCE_GROUP }}
+          imageToDeploy: ${{ secrets.DOCKER_USER }}.azurecr.io/review-api:${{ github.sha }} 
