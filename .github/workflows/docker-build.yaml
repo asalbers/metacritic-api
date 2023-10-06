@@ -5,7 +5,7 @@ on:
     workflows:
         - Python-Build
     types:
-        - completed
+        - on-success
 
 jobs:
   docker_build:
