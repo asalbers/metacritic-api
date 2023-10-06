@@ -5,7 +5,7 @@ on:
     workflows:
         - Docker-Build
     types:
-        - completed
+        - on-success
 
 jobs:
   build:
