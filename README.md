@@ -2,7 +2,7 @@
 
 ## Runs in a docker file
 Requires python 3.8.x
-## Running the api in docker
+## Running the api in docker 
 
 ```sh
 docker build -t python-api .
