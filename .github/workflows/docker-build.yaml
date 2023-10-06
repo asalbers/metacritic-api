@@ -8,7 +8,7 @@ on:
         - on-success
 
 jobs:
-  docker_build:
+  build:
     runs-on: ubuntu-latest
 
     steps:
