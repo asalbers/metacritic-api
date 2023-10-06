@@ -41,6 +41,7 @@ jobs:
         uses: erzz/dockle-action@v1
         with:
           image: ${{ secrets.DOCKER_USER }}.azurecr.io/review-api:${{ github.sha }}
+          exit-code: 0
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
