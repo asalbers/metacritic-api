@@ -1,11 +1,10 @@
 name: Azure Container Apps Deploy
 
-on:
-  workflow_run:
-    workflows:
-        - Docker-Build
-    types:
-        - completed
+on: 
+  push: 
+    branches: [ main ]
+    paths-ignore: [.github/**]
+  workflow_dispatch:
 
 jobs:
   build:
