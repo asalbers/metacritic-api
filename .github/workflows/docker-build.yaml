@@ -1,11 +1,10 @@
 name: Docker-Build
 
-on:
-  workflow_run:
-    workflows:
-        - Python-Build
-    types:
-        - completed
+on: 
+  push: 
+    branches: [ main ]
+    paths-ignore: [.github/**]
+  workflow_dispatch:
 
 jobs:
   docker-build:
@@ -21,27 +20,16 @@ jobs:
           registry: ${{ secrets.CONTAINER_REG }}.azurecr.io
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-        
-        # - name: Set up Docker buildx
-        #   uses: docker/setup-buildx-action@v2
-        
-        # - name: Build and push
-        #   uses: docker/build-push-action@v4
-        #   with:
-        #     context: .
-        #     file: ./Dockerfile
-        #     push: false
-        #     tags: ${{ secrets.DOCKER_USER }}.azurecr.io/review-api:${{ github.sha }}
-
-      - name: Build an image from Dockerfile
-        run: |
-          docker build -t ${{ secrets.DOCKER_USER }}.azurecr.io/review-api:${{ github.sha }} .
-
+      
       - name: Run Dockle
         uses: erzz/dockle-action@v1
         with:
           image: ${{ secrets.DOCKER_USER }}.azurecr.io/review-api:${{ github.sha }}
           exit-code: 0
+
+      - name: Build an image from Dockerfile
+        run: |
+          docker build -t ${{ secrets.DOCKER_USER }}.azurecr.io/review-api:${{ github.sha }} .
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
@@ -53,12 +41,6 @@ jobs:
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
         
-        # - name: Build and push
-        #   uses: docker/build-push-action@v4
-        #   with:
-        #     context: ./Dockerfile
-        #     push: true
-        #     tags: ${{ secrets.DOCKER_USER }}.azurecr.io/review-api:${{ github.sha }}
       - name: Push Image to ACR
         run: |
           docker push  ${{ secrets.DOCKER_USER }}.azurecr.io/review-api:${{ github.sha }} 
